@@ -1,35 +1,35 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: hackathon-ui2
+  name: hackathon-ui
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: hackathon-ui2-user
-  namespace: hackathon-ui2
+  name: hackathon-ui-user
+  namespace: hackathon-ui
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hackathon-ui2-deployment
-  namespace: hackathon-ui2
+  name: hackathon-ui-deployment
+  namespace: hackathon-ui
   labels:
-    app: hackathon-ui2
+    app: hackathon-ui
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: hackathon-ui2
+      app: hackathon-ui
   template:
     metadata:
       labels:
-        app: hackathon-ui2
+        app: hackathon-ui
     spec:
-      serviceAccountName: hackathon-ui2-user
+      serviceAccountName: hackathon-ui-user
       containers:
-        - name: hackathon-ui2
-          image: cagip/hackathon-ui2:latest
+        - name: hackathon-ui
+          image: cagip/hackathon-ui:latest
           imagePullPolicy: Always
           env:
             - name: VUE_APP_API_ENDPOINT
@@ -55,12 +55,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: hackathon-ui2-svc
-  namespace: hackathon-ui2
+  name: hackathon-ui-svc
+  namespace: hackathon-ui
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
   labels:
-    app: hackathon-ui2
+    app: hackathon-ui
 spec:
   type: LoadBalancer
   ports:
@@ -69,4 +69,4 @@ spec:
       protocol: TCP
       targetPort: 80
   selector:
-    app: hackathon-ui2
+    app: hackathon-ui
