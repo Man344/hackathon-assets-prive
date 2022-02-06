@@ -33,7 +33,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: VUE_APP_API_ENDPOINT
-              value: 'http://<public_ip_hackathon-api>'
+              value: 'http://35.187.19.246/'
           livenessProbe:
             failureThreshold: 3
             httpGet:
